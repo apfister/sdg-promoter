@@ -1,0 +1,51 @@
+{
+  "name": "sdg-promoter",
+  "version": "0.0.0",
+  "description": "Small description for sdg-promoter goes here",
+  "private": true,
+  "directories": {
+    "doc": "doc",
+    "test": "tests"
+  },
+  "scripts": {
+    "build": "ember build",
+    "start": "ember server",
+    "test": "ember test"
+  },
+  "repository": "",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "bootstrap-sass": "^3.3.6",
+    "broccoli-asset-rev": "^2.4.2",
+    "broccoli-funnel": "^1.0.1",
+    "calcite-bootstrap": "0.3.3",
+    "ember-cli": "2.8.0",
+    "ember-cli-amd": "0.4.8",
+    "ember-cli-app-version": "1.0.0",
+    "ember-cli-babel": "^5.1.6",
+    "ember-cli-content-security-policy": "0.5.0",
+    "ember-cli-dependency-checker": "^1.2.0",
+    "ember-cli-htmlbars": "^1.0.3",
+    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
+    "ember-cli-ic-ajax": "0.2.5",
+    "ember-cli-inject-live-reload": "^1.4.0",
+    "ember-cli-inline-content": "^0.4.0",
+    "ember-cli-qunit": "^2.1.0",
+    "ember-cli-release": "0.2.9",
+    "ember-cli-sass": "^5.5.2",
+    "ember-cli-sri": "^2.1.0",
+    "ember-cli-uglify": "^1.2.0",
+    "ember-data": "^2.8.0",
+    "ember-disable-proxy-controllers": "^1.0.0",
+    "ember-export-application-global": "^1.0.5",
+    "ember-intl": "2.9.2",
+    "ember-load-initializers": "^0.5.1",
+    "loader.js": "^4.0.1",
+    "torii": "0.8.0",
+    "torii-provider-arcgis": "0.3.0"
+  }
+}

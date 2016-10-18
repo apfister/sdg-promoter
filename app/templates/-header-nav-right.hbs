@@ -1,0 +1,21 @@
+<ul class='nav navbar-nav navbar-right'>
+    {{ago-signin currentUrl=applicationController.currentAppUrl showSettings=(action "showSettings") }}
+    
+<!--   {{#if session.isAuthenticated}}
+    <li><img src={{session.thumbnailUrl}} class='user-thumbnail hidden-xs' /></li>
+    <ul class="nav navbar-nav navbar-right">      
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        {{ session.currentUser.fullName }} <span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          
+          <li class="user-sign-inout"><a {{action 'invalidateSession'}} >{{t 'header.signOut' }}</a></li>
+        </ul>
+      </li>
+    </ul>
+
+  {{else}}
+    <li class="user-sign-inout"><a {{action 'signin' }} >{{t 'header.signIn'}}</a></li>
+  {{/if}} -->
+
+</ul>

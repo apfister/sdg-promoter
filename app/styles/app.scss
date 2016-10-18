@@ -1,0 +1,52 @@
+/* Vars that are needed in some of the other imports and
+would normally come from calcite, but we are not including it
+in this site */
+$Calcite_Gray_050:   #ffffff; 
+$Calcite_Gray_700:   #323232; 
+
+@import 'calcite-bootstrap';
+$icon-font-path: './fonts/';
+
+@import "bootstrap";
+
+$primary-font-sanserif:  'Avenir Next W01', 'Avenir Next', 'Avenir';
+$primary-font-serif: 'Kepler W01';
+$primary-headings-weight: 300;
+
+@import 'calcite/_colors-default';
+@import 'calcite/_variables';
+
+@import 'header';
+@import 'signin';
+
+[data-ember-action] {
+  cursor: pointer;
+}
+
+.marg-top-50 {
+  margin-top: 50px;
+}
+
+/*nav bar*/
+.top-header {
+ /* height: 80px;
+  padding-top: 10px;*/
+}
+.navbar-brand {
+  padding: 5px 15px;
+}
+.navbar-header {
+  margin-left: -15px;
+}
+.brand-logo {
+  height: 60px;
+  width: 60px;
+}
+
+.sit-on-top {
+  z-index: 1;
+}
+
+.item-thumbnail {
+  max-height: 75px;
+}
