@@ -4,24 +4,18 @@ export default Ember.Route.extend({
 
   intl: Ember.inject.service(),
 
-  beforeModel: function () {
+  beforeModel() {
     
     const intl = this.get('intl');
 
     let defaultLocale = 'en-us';
 
     intl.setLocale(defaultLocale);
-    
   },
 
   actions: {
-    
-    signin: function () {
+    signin() {
       this.transitionTo('signin');
-    },
-
-    showSettings: function () {
-      console.log('settings');
     }
   }
 });

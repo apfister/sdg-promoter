@@ -35,7 +35,9 @@ module.exports = function(environment) {
         domain: 'arcgis.com',
         env: '',
         maps: 'maps'
-      }
+      },
+
+      groupId: 'af18b71f8e6244fea17760c355651962'
     },
 
     contentSecurityPolicy: {

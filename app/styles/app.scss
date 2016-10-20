@@ -18,9 +18,19 @@ $primary-headings-weight: 300;
 
 @import 'header';
 @import 'signin';
+@import 'item-grid';
 
 [data-ember-action] {
   cursor: pointer;
+}
+
+hr {
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+.no-marg-left {
+  margin-left: 0;
 }
 
 .marg-top-50 {
@@ -45,8 +55,4 @@ $primary-headings-weight: 300;
 
 .sit-on-top {
   z-index: 1;
-}
-
-.item-thumbnail {
-  max-height: 75px;
 }

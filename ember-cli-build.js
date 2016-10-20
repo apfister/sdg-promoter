@@ -13,9 +13,9 @@ module.exports = function(defaults) {
     },
 
     amd: {
-      loader: '//js.arcgis.com/3.18/init.js',
+      loader: '//js.arcgis.com/4.0/',
       packages: [
-        'esri'
+        'esri', 'dojo', 'dgrid', 'dstore'
       ],
       inline: true,
       configPath: 'config/dojo-config.js'

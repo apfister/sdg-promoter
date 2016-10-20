@@ -1,3 +1,39 @@
+<div class="row no-marg-left">
+  <div class="col-xs-12">
+    <h2>{{appState.groupName}}</h2>
+  </div>
+</div>
 
-hi review route
-{{outlet}}
+<hr>
+
+<div class="row no-marg-left">
+  <div class="col-xs-3">
+    <input class="form-control" type="text" placeholder="Search Items" />
+  </div>
+  <div class="col-xs-3">
+    <div class="form-inline">
+      <div class="form-group">
+        <label for="selSortBy">Sort By:</label>
+        <select id="selSortBy" class="form-control">
+          <option>Score</option>
+          <option>Title</option>
+          <option>Type</option>
+          <option>Date Modified</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <select class="form-control">
+      <option>Web Map</option>
+      <option>Web Application</option>
+      <option>Feature Service</option>
+    </select>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    {{item-grid}}
+  </div>
+</div>
