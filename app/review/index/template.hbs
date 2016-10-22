@@ -1,0 +1,67 @@
+<div class="row no-marg-left">
+  <div class="col-xs-12">
+    <h2>{{appState.groupName}}</h2>
+  </div>
+</div>
+
+<hr>
+
+<!-- <div class="row no-marg-left">
+  <div class="col-xs-3">
+    
+    {{ input class="form-control" placeholder="Search Items" keyDown=(action "searchKeyDown") }}
+  </div>
+  <div class="col-xs-3">
+    <div class="form-inline">
+      <div class="form-group">
+        <label for="selSortBy">Sort By:</label>
+        <select id="selSortBy" class="form-control">
+          <option>Score</option>
+          <option>Title</option>
+          <option>Type</option>
+          <option>Date Modified</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-2">
+    <select class="form-control">
+      <option>Web Map</option>
+      <option>Web Application</option>
+      <option>Feature Service</option>
+    </select>
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-sm-12">
+    <h2>Item Search</h2>
+    {{item-search-form onFilter=(action 'filter')
+      owner=owner
+      tags=tags
+      type=type
+      typeKeywords=typeKeywords
+      query=query}}
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <!-- {{item-grid}} -->
+
+    {{#if totalCount}}
+      <h4>Found {{totalCount}} Items</h4>
+
+      {{#each model.results as |item|}}
+
+        {{item-display model=item}}
+        
+      {{/each}}
+
+      {{list-pager model=model}}
+    {{else}}
+      <div class="alert alert-warning">No items found for query {{q}}.</div>
+    {{/if}}    
+
+  </div>
+</div>

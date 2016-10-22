@@ -260,7 +260,7 @@ export default Ember.Service.extend({
         }
 
         if (i === portalItemsData.length - 1) {
-          deferred.resolve(portalItemArr);
+          deferred.resolve(m);
         }
       });
 

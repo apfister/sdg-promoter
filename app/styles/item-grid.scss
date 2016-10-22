@@ -73,6 +73,10 @@
   margin-bottom: 10px;
 }
 
+.item-detail table td {
+  border-top: none !important;
+}
+
 .item-score {
   font-size: 35px;
 }
@@ -90,6 +94,27 @@
 .collapsed .expando {
   display: none;
   /*padding: 0.7em 1em 0.5em 3em;*/
+}
+
+.score-graphic {
+  width: 70px;
+  height: 25px;
+  border: 1px solid #D94C1D;
+  border-radius: 3px;
+  color: #D94C1D;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1em;
+}
+
+.score-graphic-fail {
+  border: 1px solid #C86A4A;
+  color: #C86A4A;
+}
+
+.score-graphic-pass {
+  border: 1px solid #0079C1;
+  color: #0079C1;
 }
 
 /* START -- dgrid overrides */

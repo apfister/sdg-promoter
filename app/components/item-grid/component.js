@@ -26,6 +26,8 @@ export default Ember.Component.extend({
 
   arcgisValidatorConfig: Ember.inject.service(),
 
+  appState: Ember.inject.service(),
+
   didInsertElement() {
 
     const s = this.get('portalQueryEngine');
@@ -256,12 +258,16 @@ export default Ember.Component.extend({
   initGrid(storeItems) {
     Ember.debug('firing up grid with new items ..');
 
+    const appState = this.get('appState');
+
     storeItems.sort(this._compare);
 
     const memStore = new Memory({
       data: storeItems,
       idProperty: 'id'
     });
+
+    appState.set('gridStore', memStore);
 
     const grid = new (declare([OnDemandGrid, Pagination])) ({
       // className: 'dgrid-autoheight',
@@ -277,7 +283,7 @@ export default Ember.Component.extend({
         const lastModified = this._formatDate(new Date(object.modified));
         const itemTypeIconUrl = this._getItemTypeIconUrl(object.type);
 
-        const score = object.scoring.score;
+        const score = object.scoring.totalScore;
         let itemScoreClass = 'text-muted';
         if (score <= 10) {
           itemScoreClass = 'text-danger';
@@ -306,31 +312,52 @@ export default Ember.Component.extend({
           </div>
           <div class="col-xs-2"> 
             <div>
-              <span class="item-score ${itemScoreClass}">${object.scoring.score}</span> <span class="item-score-sep"> /</span> <span class="item-score-100">100</span>
+              <span class="item-score ${itemScoreClass}">${object.scoring.totalScore}</span> <span class="item-score-sep"> /</span> <span class="item-score-100">100</span>
             </div>
           </div>
         </div>
-        <div class="container expando item-detail">
-          <div class="row">
-            <div class="col-xs-12">
-              ${object.title}
-            </div>
-          </div>
-        </div>`;
+        `;
 
         const node = domConstruct.toDom(content);
 
         let div = domConstruct.create('div', { className: 'collapsed'});
         div.appendChild(node);
 
-        // let summaryDiv = domConstruct.create('div', { className: 'expando' }, div);
-        // summaryDiv.appendChild(document.createTextNode(object.title));
+        const scoring = object.scoring;
+        
+        let summaryContent = '<table class="table table-condensed"> <tbody>';
+
+        scoring.items.forEach( (scoreItem) => {
+          let className = 'score-graphic';
+
+          if (scoreItem.score !== scoreItem.maxScore) {
+            className += ' score-graphic-fail';
+          } else {
+            className += ' score-graphic-pass';
+          }
+
+          summaryContent += `<tr>
+            <td class="col-xs-1">${scoreItem.label}</td>
+            <td class="col-xs-5"> <div class="${className}"> ${scoreItem.score} / ${scoreItem.maxScore} </div> </td>
+          </tr>
+          `;
+
+        });
+
+        summaryContent += '</tbody></table>';
+
+        let summaryNode = domConstruct.toDom(summaryContent);
+
+        let summaryDiv = domConstruct.create('div', { className: 'container expando item-detail' }, div);
+        summaryDiv.appendChild(summaryNode);
 
         return div;
       }
     }, this.element);
 
     grid.startup();
+
+    appState.set('grid', grid);
 
     this.set('expandedNode', null);
 

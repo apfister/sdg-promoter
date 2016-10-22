@@ -262,7 +262,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.THUMBNAILS;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.THUMBNAILS;
     
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.THUMBNAILS;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.thumbnailsMaxScore;
     scoreObj.messages = [];
@@ -292,7 +295,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.TITLE;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.TITLE;
     
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.TITLE;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.titleMaxScore;
     scoreObj.messages = [];
@@ -344,7 +350,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES   = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.SUMMARY;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.SUMMARY;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.SUMMARY;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.snippetMaxScore;
     scoreObj.messages = [];
@@ -397,7 +406,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES   = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.DESCRIPTION;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.DESCRIPTION;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.DESCRIPTION;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.descriptionMaxScore;
     scoreObj.messages = [];
@@ -439,7 +451,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES   = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.ACCESS_USE_CONSTRAINTS;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.ACCESS_USE_CONSTRAINTS;
     
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.ACCESS_USE_CONSTRAINTS;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.licenseInformationMaxScore;
     scoreObj.messages = [];
@@ -476,7 +491,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.CREDITS;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.CREDITS;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.CREDITS;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.accessInformationMaxScore;
     scoreObj.messages = [];
@@ -499,7 +517,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.TAGS;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.TAGS;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.TAGS;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.tagsMaxScore;
     scoreObj.messages = [];
@@ -540,7 +561,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.SHARING;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.SHARING;
     
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.SHARING;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.sharingMaxScore;
     scoreObj.messages = [];
@@ -564,7 +588,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.LAYER_COUNT;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.LAYER_COUNT;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.LAYER_COUNT;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.numLayersMaxScore;
     scoreObj.messages = [];
@@ -603,7 +630,10 @@ export default Ember.Mixin.create({
 
     let isSSL = false;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.SSL;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.sslMaxScore;
     scoreObj.messages = [];
@@ -640,7 +670,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.USER_PROFILE_NAME;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.USER_PROFILE_NAME;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.USER_PROFILE_NAME;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.userProfileFullNameMaxScore;
     scoreObj.messages = [];
@@ -666,7 +699,10 @@ export default Ember.Mixin.create({
     const WARNING_MESSAGES  = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.USER_PROFILE_DESCRIPTION;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.USER_PROFILE_DESCRIPTION;
 
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.USER_PROFILE_DESCRIPTION;
+    
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.userProfileDescriptionMaxScore;
     scoreObj.messages = [];
@@ -709,8 +745,11 @@ export default Ember.Mixin.create({
     
     const WARNING_MESSAGES   = arcgisValidatorConfig.SCORING_MESSAGES.WARNINGS.USER_PROFILE_THUMBNAIL;
     const ERROR_MESSAGES = arcgisValidatorConfig.SCORING_MESSAGES.ERRORS.USER_PROFILE_THUMBNAIL;
+
+    const label = arcgisValidatorConfig.SCORING_MESSAGES.LABELS.USER_PROFILE_THUMBNAIL;
     
     let scoreObj = {};
+    scoreObj.label = label;
     scoreObj.score = 0;
     scoreObj.maxScore = this.userProfileThumbnailMaxScore;
     scoreObj.messages = [];

@@ -12,6 +12,62 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
 
   arcgisValidatorConfig: Ember.inject.service(),
 
+  validateItem: function (item) {
+    // /data
+    const data = item.data;
+
+    let validatedItem = {};
+    
+    // set PortalItem properties on the new hybrid item type
+    validatedItem.access = item.access;
+    validatedItem.description = item.description;
+    validatedItem.id = item.id;
+    validatedItem.isLayer = item.isLayer;
+    validatedItem.itemUrl = item.itemUrl;
+    validatedItem.largeThumbnail = item.largeThumbnail;
+    validatedItem.licenseInfo = item.licenseInfo;
+    validatedItem.modified = item.modified;
+    validatedItem.numViews = item.numViews;
+    validatedItem.owner = item.owner;
+    validatedItem.status = item.status;
+    validatedItem.assignedCurator = item.assignedCurator;
+    validatedItem.thumbnail = item.thumbnail;
+    validatedItem.thumbnailUrl = item.thumbnailUrl;
+    validatedItem.title = item.title;
+    validatedItem.type = item.type;
+    validatedItem.url = item.url;
+    validatedItem.data = item.data;
+    validatedItem.shared = item.shared;
+    
+    // set item validation properties on the hybrid item
+    validatedItem.thumbnailsValidationResults = this.validateItemThumbnails(item);
+    validatedItem.titleValidationResults = this.validateItemTitle(item);
+    validatedItem.snippetValidationResults = this.validateItemSnippet(item);
+    validatedItem.descriptionValidationResults = this.validateItemDescription(item);
+    validatedItem.accessInformationValidationResults = this.validateItemLicenseInfo(item);
+    validatedItem.licenseInfoValidationResults = this.validateItemAccessInformation(item);
+    validatedItem.tagsValidationResults = this.validateItemTags(item);
+    validatedItem.sharingValidationResults = this.validateItemSharing(item);
+    validatedItem.layersValidationResults = this.validateNumberOfLayers(data);
+    validatedItem.sslValidationResults = this.validateSecureSocketsLayer(item);
+    validatedItem.userProfileFullnameValidationResults = this.validateUserProfileUsername(item);
+    validatedItem.userProfileDescriptionValidationResults = this.validateUserProfileUserDescription(item);
+    validatedItem.userProfileThumbnailValidationResults = this.validateUserProfileUserThumbnail(item);
+    
+    // properly score the item based on the item's type
+    this.setScoreType(item.type);
+    
+    // score the item
+    const scores = this.scoreItem(validatedItem);
+    
+    // set item scoring properties on the hybrid item
+    validatedItem.totalScore = scores.score;
+    validatedItem.scoring = scores;
+    
+    return validatedItem;
+
+  },
+
   /////////////////////////////////////////////////////
   // Validate
   /////////////////////////////////////////////////////
@@ -538,13 +594,11 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
    * Return a result that contains the properties:
    *
    */
-  validateSecureSocketsLayer: function (hybridPortalItem) {
+  validateSecureSocketsLayer: function (item) {
     let result = {};
     result.layers = [];
 
-    const item = hybridPortalItem.item;
-    
-    const data = hybridPortalItem.data;
+    const data = item.data;
     
     const itemUrl = esriLang.isDefined(item.url) ? item.url : null;
 
@@ -583,10 +637,10 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
    *      hasFullName: Boolean indicating if the user have a valid full name
    *      prohibitedChars: Boolean indicating if the user's full name does not contain prohibited chars
    */
-  validateUserProfileUsername: function (hybridPortalItem) {
+  validateUserProfileUsername: function (item) {
     let result = {};
     
-    const userObj = hybridPortalItem.user.data;
+    const userObj = item.userDetail;
     
     const fullName = userObj.fullName;
 
@@ -616,10 +670,10 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
    *      numSentences: Number of sentences
    *      hasEmail: Boolean indicating if there is an email in the description
    */
-  validateUserProfileUserDescription: function (hybridPortalItem) {
+  validateUserProfileUserDescription: function (item) {
     let result = {};
 
-    const userObj = hybridPortalItem.user.data;
+    const userObj = item.userDetail;
 
     const description = userObj.description;
     
@@ -665,11 +719,11 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
    * @returns {{}}
    * Return a result that contains the properties:
    */
-  validateUserProfileUserThumbnail: function (hybridPortalItem) {
+  validateUserProfileUserThumbnail: function (item) {
     let result = {};
     result.hasThumbnail = false;
 
-    const userObj = hybridPortalItem.user.data;
+    const userObj = item.userDetail;
     
     const thumbnail = userObj.thumbnail;
     

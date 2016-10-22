@@ -1,0 +1,23 @@
+<div class="row item-row"> 
+  <div class="col-xs-2"> 
+    <div class="thumbnail">
+      <img class="img-responsive center-block item-thumbnail" src={{thumbnailUrl}}>
+    </div>
+  </div>
+  <div class="col-xs-8">
+    <div class="item-title">{{model.title}}</div>
+    <div class="item-meta-data">
+      <span class="item-type">
+        <span> <img class="item-icon" src="{{itemTypeIconUrl}}"> </span>{{model.type}}</span> - 
+        <span class="item-access">{{sharing}} - Updated {{lastModified}}</span>
+    </div>
+    
+    <div class="item-number-views">{{model.numViews}} views</div>
+    <div>{{model.data.testing}}</div>
+  </div>
+  <div class="col-xs-2"> 
+    <div>
+      <span class="item-score {{itemScoreClass}}">{{model.scoring.totalScore}}</span> <span class="item-score-sep"> /</span> <span class="item-score-100">100</span>
+    </div>
+  </div>
+</div>

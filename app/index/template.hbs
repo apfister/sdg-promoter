@@ -1,2 +1,8 @@
+<h2>Select Your Group to Review Items</h2>
+<hr>
+
+{{#each model.results as |item|}}
+  <li>{{#link-to 'review.index' item.id }} {{item.title}} {{/link-to}}</li>
+{{/each}}
 
 {{outlet}}

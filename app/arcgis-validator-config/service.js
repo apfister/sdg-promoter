@@ -205,6 +205,21 @@ export default Ember.Service.extend({
       "USER_PROFILE_THUMBNAIL":{
         "NO_THUMBNAIL":"Profile MISSING thumbnail"
       }
+    },
+    "LABELS": {
+      "THUMBNAILS" : "Thumbnails",
+      "TITLE" : "Title",
+      "SUMMARY" : "Summary",
+      "DESCRIPTION" : "Description",
+      "ACCESS_USE_CONSTRAINTS" : "Access\/Use",
+      "CREDITS" : "Credits",
+      "TAGS" : "Tags",
+      "SHARING" : "Sharing",
+      "LAYER_COUNT" : "Layer Count",
+      "SSL" : "SSL",
+      "USER_PROFILE_NAME" : "Profile Name",
+      "USER_PROFILE_DESCRIPTION" : "Profile Description",
+      "USER_PROFILE_THUMBNAIL" : "Profile Thumbnail"
     }
   },
   "SDG_STAGING_GROUP":"af18b71f8e6244fea17760c355651962",

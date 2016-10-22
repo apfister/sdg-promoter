@@ -7,10 +7,11 @@ var Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('signin');
-
   this.route('unauthorized');
 
-  this.route('review', {path: '/'});
+  this.authenticatedRoute('review', { path: ':groupId' }, function () {
+    this.route('index', { path: '/'});
+  });
 });
 
 export default Router;
