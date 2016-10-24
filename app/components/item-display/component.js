@@ -20,7 +20,8 @@ export default Ember.Component.extend({
     'Vector Tile Service': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/vectortile16.png',
     'Image Service': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/imagery16.png',
     'Web Scene': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/websceneglobal16.png',
-    'CSV': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png'
+    'CSV': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png',
+    'Code Attachment': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png'
   },
 
   thumbnailUrl: Ember.computed('model.id', 'model.thumbnail', function () {
@@ -61,8 +62,25 @@ export default Ember.Component.extend({
     return this.get('intl').formatDate(dte, {month: 'short', day: '2-digit', year: 'numeric'});
   }),
 
-  didInsertElement() {
+  itemScoreClass: Ember.computed('model.scoring.totalScore', function () {
+    const score = this.get('model.scoring.totalScore');
+
+    let scoreClass = 'text-muted';
     
+    if (score <= 10) {
+      scoreClass = 'text-danger';
+    } else if (score > 10 && score <= 35) {
+      scoreClass = 'text-warning';
+    } else if (score >= 80) {
+      scoreClass = 'text-success';
+    }
+    return scoreClass;
+  }),
+
+  scoring: {}, 
+
+  didInsertElement() {
+
     const itemType = this.get('model.type');
 
     if (Ember.isEmpty(this.get('model.url'))) {
@@ -76,7 +94,9 @@ export default Ember.Component.extend({
         itemType === arcgisValidatorConfig.supportedTypes.FEATURE_SERVICE ||
         itemType === arcgisValidatorConfig.supportedTypes.FEATURE_COLLECTION ||
         itemType === arcgisValidatorConfig.supportedTypes.IMAGE_SERVICE ||
-        itemType === arcgisValidatorConfig.supportedTypes.MAP_SERVICE ) {
+        itemType === arcgisValidatorConfig.supportedTypes.MAP_SERVICE ||
+        itemType === arcgisValidatorConfig.supportedTypes.WEB_SCENE ||
+        itemType === arcgisValidatorConfig.supportedTypes.CSV ) {
 
         const itemId = this.get('model.id');
 
@@ -90,6 +110,12 @@ export default Ember.Component.extend({
             this.set('model.data', '');
           })
           .finally( () => {
+
+            if (this.get('isDestroyed') || this.get('isDestroying')) {
+              Ember.debug('attempting to score a destroyed model/item so we are bailing! figure this out!');
+              return;
+            }
+
             const userService = this.get('userService');
 
             userService.getByName(this.get('model.owner'))
@@ -103,6 +129,8 @@ export default Ember.Component.extend({
                 
                 this._scoreItem();
 
+                this._setClickHandler();
+
               });
 
           });
@@ -110,7 +138,13 @@ export default Ember.Component.extend({
   },
 
   _scoreItem() {
-    this.set('model.scoring', {});
+
+    if (this.get('isDestroyed') || this.get('isDestroying')) {
+      Ember.debug('attempting to score a destroyed model/item so we are bailing! figure this out!');
+      return;
+    }
+
+    // this.set('model.scoring', {});
 
     const arcgisValidatorEngine = this.get('arcgisValidatorEngine');
 
@@ -118,8 +152,32 @@ export default Ember.Component.extend({
 
     const scoring = validatedItem.scoring;
 
-    this.set('model.scoring', scoring);
+    Ember.set(this, 'model.scoring', scoring);
 
+  },
+
+  _setClickHandler() {
+    this.$('.item-thumbnail, .item-title').on('click', this.showDetailsHandler.bind(this));
+  },
+
+  showDetailsHandler() {
+
+    // are the details showing? stash it.
+    const isShowing = this.get('model.showDetails');
+
+    // hide everybody!
+    this.get('hideAllDetails')();
+
+    // toggle the state for the item that was clicked
+    this.set('model.showDetails', !isShowing);
+   
+    console.log('click!');
+  },
+
+  willDestroyElement() {
+    this._super(...arguments);
+
+    this.$('.item-thumbnail, .item-title').off('click');
   }
 
 });

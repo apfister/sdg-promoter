@@ -18,7 +18,9 @@ $primary-headings-weight: 300;
 
 @import 'header';
 @import 'signin';
-@import 'item-grid';
+@import 'item-display';
+@import 'item-details';
+@import 'placeholder-image';
 
 [data-ember-action] {
   cursor: pointer;
@@ -33,6 +35,10 @@ hr {
   margin-left: 0;
 }
 
+.marg-top-20 {
+  margin-top: 20px;
+}
+
 .marg-top-50 {
   margin-top: 50px;
 }
@@ -42,6 +48,9 @@ hr {
  /* height: 80px;
   padding-top: 10px;*/
 }
+.navbar {
+  min-height: 50px;
+}
 .navbar-brand {
   padding: 5px 15px;
 }
@@ -49,8 +58,8 @@ hr {
   margin-left: -15px;
 }
 .brand-logo {
-  height: 60px;
-  width: 60px;
+  height: 70px;
+  width: 70px;
 }
 
 .sit-on-top {

@@ -1314,7 +1314,8 @@ export default Ember.Service.extend({
     "WEB_MAP":"Web Map",
     "WEB_MAPPING_APPLICATION":"Web Mapping Application",
     "WEB_SCENE":"Web Scene",
-    "WMS":"WMS"
+    "WMS":"WMS",
+    "CSV":"CSV"
   },
 
   init() {

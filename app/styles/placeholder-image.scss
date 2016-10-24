@@ -1,0 +1,22 @@
+.fade-in-image {
+  /*position: relative;
+  overflow: hidden;*/
+  /*height: 250px;*/
+  /*width: 250px;*/
+}
+
+.fade-in-image #fade-in-image-placeholder {
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #efefef;
+  background-image: url('/assets/images/thumbnail_placeholder.png');
+}
+
+.fade-in-image #fade-in-image-placeholder.fade-in {
+  opacity: 0;
+  transition: opacity 1.5s linear;
+}

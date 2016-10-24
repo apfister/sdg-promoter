@@ -3,7 +3,10 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
   // layout,
+  classNames: ['text-center'],
+
   tagName: 'nav',
+  
   totalCount: Ember.computed('model.total', function () {
     return this.get('model.total');
   }),

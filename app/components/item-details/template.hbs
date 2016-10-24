@@ -1,0 +1,18 @@
+<ul class="nav nav-pills nav-justified">
+  <li class="active" role="presentation"><a href="#">DETAILS</a></li>
+  <li role="presentation"><a href="#">USE/CREDITS</a></li>
+  <li role="presentation"><a href="#">TAGS</a></li>
+  <li role="presentation"><a href="#">SETTINGS</a></li>
+  <li role="presentation"><a href="#">MY PROFILE</a></li>
+</ul>
+
+<table class="table table-condensed item-details-table"> 
+  <tbody>
+  {{#each model.scoring.items as |scoreItem|}}
+    <tr>
+      <td class="col-xs-1">{{scoreItem.label}}</td>
+      <td class="col-xs-5"> <div class="score-graphic {{if (scoreHelper scoreItem.score scoreItem.maxScore) 'score-graphic-pass' 'score-graphic-fail'}}"> {{scoreItem.score}} / {{scoreItem.maxScore}} </div> </td>
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

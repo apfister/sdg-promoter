@@ -8,7 +8,7 @@ export default Ember.Controller.extend({
   start: 1,
   q: null,
   query: '*',
-  num: 10,
+  num: 5,
   owner: null,
   tags: null,
   typeKeywords: null,
@@ -29,6 +29,14 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+    hideAllDetails() {
+      
+      this.get('model.results').forEach( (item) => { 
+        Ember.set(item, 'showDetails', false); 
+      });
+      
+    },
+
     filter () {
       this.set('q', this.get('query'));
       // reset the page

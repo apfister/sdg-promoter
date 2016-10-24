@@ -1,8 +1,16 @@
-<h2>Select Your Group to Review Items</h2>
-<hr>
+<div class="container">
+  <h2>Select a Group to Review its Items</h2>
+  <hr>
 
-{{#each model.results as |item|}}
-  <li>{{#link-to 'review.index' item.id }} {{item.title}} {{/link-to}}</li>
-{{/each}}
+  <div class="row">
+    <div class="col-xs-8">
+      <ul class="list-group">
+      {{#each model.results as |item|}}
+        <li class="list-group-item">{{#link-to 'review.index' item.id }} {{item.title}} {{/link-to}}</li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
 
 {{outlet}}

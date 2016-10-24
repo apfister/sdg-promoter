@@ -37,7 +37,9 @@ module.exports = function(environment) {
         maps: 'maps'
       },
 
-      groupId: 'af18b71f8e6244fea17760c355651962'
+      promoter: {
+        auditServiceUrl: '//services3.arcgis.com/7pxWboj3YvCWYdcm/arcgis/rest/services/SDG_PROMOTER_AUDIT/FeatureServer/0'
+      }
     },
 
     contentSecurityPolicy: {

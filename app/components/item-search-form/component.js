@@ -4,6 +4,7 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   // layout,
   tagName: 'form',
+  
   classNames: [ 'form-inline' ],
 
   submit () {

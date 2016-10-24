@@ -4,6 +4,7 @@ import ajax from 'ic-ajax';
 export default Ember.Route.extend({
 
   groupsService: Ember.inject.service(),
+  
   userService: Ember.inject.service(),
 
   model() {
