@@ -16,12 +16,14 @@
       {{sharing}}
     </div>
     <div class="item-access-views">{{model.numViews}} views</div>
-    <div>{{model.auditDetail.STATUS}}</div>
   </div>
-  <div class="col-xs-2"> 
+  <div class="col-xs-2 text-center"> 
     <div>
       <span class="item-score {{itemScoreClass}}">{{model.scoring.totalScore}}</span> <span class="item-score-sep"> /</span> <span class="item-score-100">100</span>
     </div>
+    <div class="item-status">
+      <span class={{currentItemStatusClass}}>{{currentItemStatus}}</span>
+    </div>
   </div>
 </div>
-{{yield model=model hideAllDetails=(action "hideAllDetails") }}
+{{yield model=model}}

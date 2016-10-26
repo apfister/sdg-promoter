@@ -77,6 +77,32 @@ export default Ember.Component.extend({
     return scoreClass;
   }),
 
+  currentItemStatusClass: Ember.computed('model.auditDetail.STATUS', function () {
+    const status = this.get('model.auditDetail.STATUS') || 'Not Reviewed';
+
+    switch (status) {
+      case 'Rejected':
+        return 'text-muted';
+        break;
+      case 'Reviewing':
+        return 'text-info';
+        break;
+      case 'Accepted':
+        return 'text-success';
+        break;
+      case 'Pending':
+        return 'text-primary';
+        break;
+      default:
+        return '';
+    }
+  }),
+
+  currentItemStatus: Ember.computed('model.auditDetail.STATUS', function() {
+    const status = this.get('model.auditDetail.STATUS') || 'Not Reviewed';
+    return status.toUpperCase();
+  }),
+
   scoring: {}, 
 
   didInsertElement() {

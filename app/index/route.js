@@ -7,7 +7,7 @@ export default Ember.Route.extend({
   
   userService: Ember.inject.service(),
 
-  model() {
+  model(params, transition) {
     const userService = this.get('userService');
     userService.__listGroups = this.__listGroups;
 
@@ -17,18 +17,34 @@ export default Ember.Route.extend({
       num: 10
     };
 
-    return userService.__listGroups(agoParams);
+    const portalUrl = userService.get('portalRestUrl');
+
+    return userService.__listGroups(agoParams, portalUrl, this);
   },
 
-  __listGroups() {
-    const url = 'https://sdgs.maps.arcgis.com/sharing/rest/community/self';
+  __listGroups(agoParams, portalUrl, model) {
+    const url = `${portalUrl}/community/self`;
+    
+    agoParams.f = 'json';
+    agoParams.token = this.get('session.token');
 
     return ajax({
       url: url,
-      data: { f: 'json', token: this.get('session.token') },
+      data: agoParams,
       dataType: 'json'
     })
-      .then( (response) => { return { results: response.groups.sort() }; });
+      .then( (response) => { 
+        return { results: response.groups.sort() }; 
+      })
+      .catch( (error) => { 
+        Ember.debug(`error getting group list: ${JSON.stringify(error)}`);
+
+        const userName = this.get('session.currentUser.username');
+        
+        const errorDetails = `Error Details: ${error.message}`;
+
+        return { error: `Unable to Retrieve Groups for [${userName}] -- Try Signing Out and Signing In again.`, details: errorDetails || '' };
+      });
   }
 
 });

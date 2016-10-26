@@ -145,9 +145,9 @@ export default Ember.Route.extend({
 
             model.results.forEach( (item) => {
               if (item.id === feature.attributes.ITEM_ID) {
-                // const me = this;
-                // item.auditDetail = Ember.copy(feature.attributes);
                 Ember.set(item, 'auditDetail', Ember.copy(feature.attributes));
+              } else {
+                Ember.set(item, 'auditDetail', { STATUS: 'Not Reviewed'});
               }
             });
 

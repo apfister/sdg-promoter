@@ -26,7 +26,7 @@
         {{#item-display model=item hideAllDetails=(action "hideAllDetails")}}
 
           {{#if item.showDetails}}
-            {{item-details model=item scoring=item.scoring.items}}
+            {{item-details model=item scoring=item.scoring.items setItemStatus=(action "setItemStatus")}}
           {{/if}}
 
         {{/item-display}}

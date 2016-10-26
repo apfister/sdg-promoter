@@ -4,5 +4,14 @@
     "signIn" : "Sign In",
     "signOut" : "Sign Out",
     "settings" : "Settings"
+  },
+  "itemDetails" : {
+    "header" : {
+      "details" : "Details",
+      "useCredits" : "Use/Credits",
+      "tags" : "Tags",
+      "settings" : "Settings",
+      "profile" : "User Profile"
+    }
   }
 }

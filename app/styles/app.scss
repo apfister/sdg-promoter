@@ -26,6 +26,11 @@ $primary-headings-weight: 300;
   cursor: pointer;
 }
 
+[role="tabpanel"][aria-hidden="true"] {
+  display: none;
+}
+
+
 hr {
   margin-top: 12px;
   margin-bottom: 20px;
@@ -45,8 +50,8 @@ hr {
 
 /*nav bar*/
 .top-header {
- /* height: 80px;
-  padding-top: 10px;*/
+  /*margin-left: 15px;
+  margin-right: auto;*/
 }
 .navbar {
   min-height: 50px;
@@ -54,9 +59,18 @@ hr {
 .navbar-brand {
   padding: 5px 15px;
 }
-.navbar-header {
-  margin-left: -15px;
+
+@media (min-width:768px) {
+  .container {
+    /*width: 760px;*/
+    width: 95%;
+    /*padding-left: 0;*/
+    padding-right: 0;
+    margin-left: 10px;
+    /*margin-right: 10px;*/
+  }
 }
+
 .brand-logo {
   height: 70px;
   width: 70px;

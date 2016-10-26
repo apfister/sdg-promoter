@@ -45,6 +45,7 @@
     "ember-export-application-global": "^1.0.5",
     "ember-intl": "2.9.2",
     "ember-load-initializers": "^0.5.1",
+    "ivy-tabs": "3.0.2",
     "loader.js": "^4.0.1",
     "torii": "0.8.0",
     "torii-provider-arcgis": "0.3.0"

@@ -1,3 +1,39 @@
 .item-details-table td {
   border-top: none !important;
 }
+
+.item-details-container {
+  margin-top: 20px;
+}
+
+.item-detail-messages {
+  margin: 10px 0px;
+}
+
+.score-graphic {
+  width: 70px;
+  height: 25px;
+  border: 1px solid #D94C1D;
+  border-radius: 3px;
+  color: #D94C1D;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+  font-size: 1em;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.score-graphic-fail {
+  border: 1px solid #C86A4A;
+  color: #C86A4A;
+}
+
+.score-graphic-pass {
+  border: 1px solid #0079C1;
+  color: #0079C1;
+}
+
+.item-status {
+  font-size: 14px;
+  margin: 18px 0;
+}
