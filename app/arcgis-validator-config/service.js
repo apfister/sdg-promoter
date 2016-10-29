@@ -132,7 +132,7 @@ export default Ember.Service.extend({
       },
       "TAGS":{
         "MINIMUM_NUMBER_OF_LA_TAGS":"At least 1 Living Atlas tag is <b>required</b>",
-        "MINIMUM_NUMBER_OF_TAGS":"This item only has {numTags} out of 4 required tags total",
+        "MINIMUM_NUMBER_OF_TAGS":"This item has {numTags} out of 4 required tags total",
         "PROHIBITED_TAGS":"Contains PROHIBITED tags"
       },
       "THUMBNAILS":{

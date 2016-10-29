@@ -1,14 +1,12 @@
 import Ember from 'ember';
 
-import array from 'dojo/_base/array';
-
 export default Ember.Mixin.create({
 
   arcgisValidatorConfig: Ember.inject.service(),
 
   _checkForProhibitedWords: function (inputText, badWords) {
     inputText = inputText.toLowerCase();
-    if (array.some(badWords, function (badWord) {
+    if (badWords.some( (badWord) => {
           badWord = badWord.toLowerCase();
           return inputText.search(badWord) >= 0;
       })) {
@@ -24,13 +22,13 @@ export default Ember.Mixin.create({
     inputText = inputText.toLowerCase();
     inputText = this._extractWords(inputText);
 
-    if (array.some(inputText, function (currentWord) {
-            var match = false;
-            array.forEach(badWords, function (badWord) {
-                if (currentWord === badWord)
-                    match = true;
-            });
-            return match;
+    if (inputText.some( (currentWord) => {
+          var match = false;
+          badWords.forEach( (badWord) => {
+              if (currentWord === badWord)
+                  match = true;
+          });
+          return match;
         })) {
         return true;
     } else {

@@ -1,7 +1,7 @@
 import Ember from 'ember';
-import esriLang from 'esri/core/lang';
-import Deferred from 'dojo/Deferred';
-import array from 'dojo/_base/array';
+// import esriLang from 'esri/core/lang';
+// import Deferred from 'dojo/Deferred';
+// import array from 'dojo/_base/array';
 
 // import stripTags from 'sdg-promoter/utils/stripTags';
 
@@ -85,7 +85,8 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
    *
    */
   validateItems: function (hybridPortalItems) {
-    const deferred = new Deferred();
+    // const deferred = new Deferred();
+    const deferred = RSVP.defer();
 
     // total number of items
     const nPortalItems = hybridPortalItems.length;
@@ -199,14 +200,14 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
       smallThumbnail = null;
     }
 
-    if (!esriLang.isDefined(smallThumbnail) && !esriLang.isDefined(largeThumbnail)) {
+    if (Ember.isEmpty(smallThumbnail) && Ember.isEmpty(largeThumbnail)) {
       // small = no
       // large = no
       result.hasCustomSmallThumbnail = false;
 
       result.hasCustomLargeThumbnail = false;
 
-    } else if (esriLang.isDefined(smallThumbnail) && !esriLang.isDefined(largeThumbnail)) {
+    } else if (!Ember.isEmpty(smallThumbnail) && Ember.isEmpty(largeThumbnail)) {
       // small = yes
       // large = no
       // get file name
@@ -217,14 +218,14 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
       
       result.hasCustomLargeThumbnail = false;
 
-    } else if (!esriLang.isDefined(smallThumbnail) && esriLang.isDefined(largeThumbnail)) {
+    } else if (Ember.isEmpty(smallThumbnail) && !Ember.isEmpty(largeThumbnail)) {
       // small = no
       // large = yes
       result.hasCustomSmallThumbnail = false;
       
       result.hasCustomLargeThumbnail = true;
 
-    } else if (esriLang.isDefined(smallThumbnail) && esriLang.isDefined(largeThumbnail)) {
+    } else if (!Ember.isEmpty(smallThumbnail) && !Ember.isEmpty(largeThumbnail)) {
       // small = yes
       // large = yes
       
@@ -264,7 +265,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
     let strippedString = '';
 
     // strip any weird characters from the title
-    if (esriLang.isDefined(title)) {
+    if (!Ember.isEmpty(title)) {
       strippedString = title.replace(/(<([^>]+)>)/ig, '');
     } else {
       strippedString = '';
@@ -309,7 +310,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
     const snippet = item.snippet;
     
     // check if there is even a summary
-    if (esriLang.isDefined(snippet)) {
+    if (!Ember.isEmpty(snippet)) {
       // there is a summary
       result.strLength = this._checkStringLength(snippet);
 
@@ -434,7 +435,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
 
       result.strLength = false;
 
-      if (esriLang.isDefined(accessInformation)) {
+      if (!Ember.isEmpty(accessInformation)) {
         if (accessInformation === '<span></span>' || accessInformation === '') {
           result.strLength = false;
         } else {
@@ -485,7 +486,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
       });
       
       // check if any tags are prohibited words (i.e. test)
-      if (array.some(arcgisValidatorConfig.LIVING_ATLAS_TAGS_PROHIBITED, function (badWord) {
+      if (arcgisValidatorConfig.LIVING_ATLAS_TAGS_PROHIBITED.some( (badWord) => {
           return tempTags.indexOf(badWord.toLowerCase()) !== -1;
         })) {
         // FAIL
@@ -562,11 +563,11 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
   validateNumberOfLayers: function (data) {
     let result = {};
 
-    if (data !== '' && esriLang.isDefined(data)) {
+    if (data !== '' && !Ember.isEmpty(data)) {
 
-      result.baseMaps = esriLang.isDefined(data.baseMap) ? data.baseMap.baseMapLayers : [];
+      result.baseMaps = !Ember.isEmpty(data.baseMap) ? data.baseMap.baseMapLayers : [];
 
-      result.operationalLayers = esriLang.isDefined(data.operationalLayers) ? data.operationalLayers : [];
+      result.operationalLayers = !Ember.isEmpty(data.operationalLayers) ? data.operationalLayers : [];
 
       result.numLayers = result.baseMaps.length + result.operationalLayers.length;
 
@@ -600,13 +601,13 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
 
     const data = item.data;
     
-    const itemUrl = esriLang.isDefined(item.url) ? item.url : null;
+    const itemUrl = !Ember.isEmpty(item.url) ? item.url : null;
 
-    if (data !== "" && esriLang.isDefined(data)) {
+    if (data !== "" && !Ember.isEmpty(data)) {
       
-      result.baseMaps = esriLang.isDefined(data.baseMap) ? data.baseMap.baseMapLayers : [];
+      result.baseMaps = !Ember.isEmpty(data.baseMap) ? data.baseMap.baseMapLayers : [];
       
-      result.operationalLayers = esriLang.isDefined(data.operationalLayers) ? data.operationalLayers : [];
+      result.operationalLayers = !Ember.isEmpty(data.operationalLayers) ? data.operationalLayers : [];
       
       result.operationalLayers.forEach( (operationalLayer) => {
         result.layers.push(operationalLayer.url);
@@ -645,7 +646,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
     const fullName = userObj.fullName;
 
     // check if the user entered a fullname and it's not just an empty string
-    if (fullName === '' || !esriLang.isDefined(fullName)) {
+    if (fullName === '' || Ember.isEmpty(fullName)) {
       result.hasFullName = false;
     } else {
       result.hasFullName = true;
@@ -677,7 +678,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
 
     const description = userObj.description;
     
-    if (!esriLang.isDefined(description) || description === '') {
+    if (Ember.isEmpty(description) || description === '') {
         
       // no description
       result.hasDescription = false;
@@ -698,7 +699,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
       // check the number of sentences
       const nSentences = strippedString.match(/[^\.!\?]+[\.!\?]+/g);
       
-      if (esriLang.isDefined(nSentences)) {
+      if (!Ember.isEmpty(nSentences)) {
         result.numSentences = nSentences.length;
       } else {
         result.numSentences = 0;
@@ -727,7 +728,7 @@ export default Ember.Service.extend(ScoringEngine, ValidationBase, {
     
     const thumbnail = userObj.thumbnail;
     
-    if (esriLang.isDefined(thumbnail)) {
+    if (!Ember.isEmpty(thumbnail)) {
       const index = thumbnail.lastIndexOf('/') + 1;
       
       let filename = thumbnail.substr(index);

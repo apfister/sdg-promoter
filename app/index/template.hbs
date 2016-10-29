@@ -2,18 +2,29 @@
 
   {{#if model.results}}
   
-  <h2>Select a Group to Review its Items</h2>
-  <hr>
+    <h2>Select a Group to Review Items</h2>
+    <hr>
 
-  <div class="row">
-    <div class="col-xs-8">
-      <ul class="list-group">
-      {{#each model.results as |item|}}
-        <li class="list-group-item">{{#link-to 'review.index' item.id }} {{item.title}} {{/link-to}}</li>
-      {{/each}}
-      </ul>
-    </div>
-  </div>
+    {{#each model.results as |item|}}
+      {{#link-to 'review.index' item.id}}
+
+      <div class="container" style="margin-bottom:20px;">
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object group-thumbnail" src="{{item.groupThumbnailUrl}}">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{item.title}}</h4>
+            {{item.snippet}}
+          </div>
+        </div>
+      </div>
+      
+      {{/link-to}}
+    {{/each}}
+
   {{else}}
     {{#if model.error}}
       <h5>{{model.error}}</h5>

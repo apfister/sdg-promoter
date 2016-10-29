@@ -10,16 +10,16 @@ module.exports = function(defaults) {
         'node_modules/bootstrap-sass/assets/stylesheets',
         'node_modules/calcite-bootstrap/dist/sass'
       ]
-    },
-
-    amd: {
-      loader: '//js.arcgis.com/4.0/',
-      packages: [
-        'esri', 'dojo', 'dgrid', 'dstore'
-      ],
-      inline: true,
-      configPath: 'config/dojo-config.js'
     }
+
+    // ,amd: {
+    //   loader: '//js.arcgis.com/4.0/',
+    //   packages: [
+    //     'esri', 'dojo', 'dgrid', 'dstore'
+    //   ],
+    //   inline: true,
+    //   configPath: 'config/dojo-config.js'
+    // }
 
   });
 
@@ -27,7 +27,7 @@ module.exports = function(defaults) {
   // output files.
   //
   // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
+  // environments, specify an object as the first para31meter. That
   // object's keys should be the environment name and the values
   // should be the asset to use in that environment.
   //

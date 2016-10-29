@@ -1,9 +1,5 @@
 import Ember from 'ember';
 
-import array from 'dojo/_base/array';
-import lang from 'dojo/_base/lang';
-import esriLang from 'esri/core/lang';
-
 export default Ember.Mixin.create({
 
   arcgisValidatorConfig: Ember.inject.service(),
@@ -358,7 +354,7 @@ export default Ember.Mixin.create({
     scoreObj.maxScore = this.snippetMaxScore;
     scoreObj.messages = [];
 
-    if (!esriLang.isDefined(snippet)) {
+    if (Ember.isEmpty(snippet)) {
       scoreObj.messages.push({
         "error": ERROR_MESSAGES.MISSING_SUMMARY
       });
@@ -414,7 +410,7 @@ export default Ember.Mixin.create({
     scoreObj.maxScore = this.descriptionMaxScore;
     scoreObj.messages = [];
 
-    if (!esriLang.isDefined(description)) {
+    if (Ember.isEmpty(description)) {
       scoreObj.messages.push({"error": ERROR_MESSAGES.MISSING_DESCRIPTION});
     } else {
       //
@@ -462,7 +458,7 @@ export default Ember.Mixin.create({
     //
     if (licenseInformation.strLength) {
       scoreObj.score = this.licenseInformationMustExistScore;
-      if (!esriLang.isDefined(licenseInformation)) {
+      if (Ember.isEmpty(licenseInformation)) {
         scoreObj.messages.push({"warning": WARNING_MESSAGES.MISSING});
       } else {
         //
@@ -499,7 +495,7 @@ export default Ember.Mixin.create({
     scoreObj.maxScore = this.accessInformationMaxScore;
     scoreObj.messages = [];
 
-    if (esriLang.isDefined(accessInformation)) {
+    if (!Ember.isEmpty(accessInformation)) {
       if (accessInformation.strLength) {
         scoreObj.score = this.accessInformationMustExistScore;
       } else {
@@ -533,10 +529,11 @@ export default Ember.Mixin.create({
         scoreObj.messages.push({"error": ERROR_MESSAGES.PROHIBITED_TAGS});
       }
     } else {
+      if (Ember.isEmpty(tags.numTags)) {
+        tags.numTags = 0;
+      }
       scoreObj.messages.push({
-        "error": lang.replace(ERROR_MESSAGES.MINIMUM_NUMBER_OF_TAGS, {
-          "numTags": tags.numTags
-        })
+        "error" : ERROR_MESSAGES.MINIMUM_NUMBER_OF_TAGS.replace('{numTags}', tags.numTags)
       });
     }
 
@@ -544,10 +541,11 @@ export default Ember.Mixin.create({
       scoreObj.score = scoreObj.score + this.tagsMinNumberOfTotalLivingAtlasTagsScore;
     } else {
       if (!tags.hasMinNumLivingAtlasTags) {
+        if (Ember.isEmpty(tags.numTags)) {
+          tags.numTags = 0;
+        }
         scoreObj.messages.push({
-          "error": lang.replace(ERROR_MESSAGES.MINIMUM_NUMBER_OF_LA_TAGS, {
-            "numTags": tags.numTags
-          })
+          "error" : ERROR_MESSAGES.MINIMUM_NUMBER_OF_LA_TAGS.replace('{numTags}', tags.numTags)
         });
       }
     }
@@ -639,9 +637,9 @@ export default Ember.Mixin.create({
     scoreObj.messages = [];
 
     ssl.layers.forEach( (layer) => {
-      if (esriLang.isDefined(layer)) {
+      if (!Ember.isEmpty(layer)) {
         let protocol = '';
-        if (esriLang.isDefined(layer.url)) {
+        if (!Ember.isEmpty(layer.url)) {
           protocol = layer.url.split("/")[0];
         } else {
           protocol = layer.split("/")[0];

@@ -9,7 +9,8 @@ export default Ember.Route.extend({
         this.get('session').open('arcgis-oauth-bearer')
           .then((authorization) => {
             Ember.debug('AUTH SUCCESS: ', authorization);
-            this.controller.transitionToRoute('review', {id: 1234});
+
+            this.controller.transitionToRoute('index');
           })
           .catch((err) => {
             Ember.debug('AUTH ERROR: ', JSON.stringify(err));

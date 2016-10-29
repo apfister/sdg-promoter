@@ -122,6 +122,11 @@ export default Ember.Route.extend({
       // stuff the results onto the model .. somehow ?
       Ember.debug('getting status for items from Feature Service ..');
 
+      // set auditDetail default
+      model.results.forEach( (item) => {
+        Ember.set(item, 'auditDetail', {});
+      });
+
       const itemIds = model.results.map( (item) => item.id );
 
       const where = `ITEM_ID IN ('${itemIds.join('\' , \'')}')`;

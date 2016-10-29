@@ -34,16 +34,61 @@ export default Ember.Route.extend({
       dataType: 'json'
     })
       .then( (response) => { 
-        return { results: response.groups.sort() }; 
+        
+        const userService = model.get('userService');
+
+        const portalUrl = userService.get('portalRestUrl');
+
+        const groupSkips = [
+          'ArcGIS Marketplace Content',
+          'Crowdsource Reporter',
+          'Default Templates Group',
+          'Featured Content',
+          'My BAO Group',
+          'My CA Group',
+          'My GeoPlanner Group',
+          'PREP'
+        ];
+        const groups = response.groups.filter( (group) => {
+          
+          if ( groupSkips.contains( group.title ) ) {
+            return false;
+          }
+
+          let url = '';
+
+          if (!Ember.isEmpty(group.thumbnail)) {
+            
+            url = `${portalUrl}/community/groups/${group.id}/info/${group.thumbnail}`;
+            
+            const token = model.get('session.token');
+
+            if (token) {
+              url += `?token=${token}`;
+            }
+
+          } else {
+            url = 'http://cdn.arcgis.com/cdn/20093/images/group-no-image.png';
+          }
+
+          Ember.set(group, 'groupThumbnailUrl', url);
+
+          return group;
+
+        });
+
+        return { results: groups.sortBy('title') }; 
       })
       .catch( (error) => { 
         Ember.debug(`error getting group list: ${JSON.stringify(error)}`);
 
-        const userName = this.get('session.currentUser.username');
-        
-        const errorDetails = `Error Details: ${error.message}`;
+        model.transitionTo('signin');
 
-        return { error: `Unable to Retrieve Groups for [${userName}] -- Try Signing Out and Signing In again.`, details: errorDetails || '' };
+        // const userName = this.get('session.currentUser.username');
+        
+        // const errorDetails = `Error Details: ${error.message}`;
+
+        // return { error: `Unable to Retrieve Groups for [${userName}] -- Try Signing Out and Signing In again.`, details: errorDetails || '' };
       });
   }
 

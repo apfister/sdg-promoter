@@ -8,6 +8,17 @@ export default Ember.Component.extend({
     return this.get('model.scoring');
   }),
 
+  currentReceipient: Ember.computed('model.userDetail', function () {
+    const userDetail = this.get('model.userDetail');
+
+    if (Ember.isEmpty(userDetail.email)) {
+      return 'cbrigham@esri.com';
+    } else {
+      return userDetail.email;
+    }
+    
+  }),
+
   didInsertElement() {
     const scoring = this.get('model.scoring');
 
@@ -68,6 +79,11 @@ export default Ember.Component.extend({
   },
 
   actions: {
+    
+    showNotesModal() {
+      $('#exampleModal').modal({});
+    },
+
     sendSetStatus(status) {
       const itemId = this.get('model.id');
 
