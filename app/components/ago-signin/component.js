@@ -31,7 +31,7 @@ export default Ember.Component.extend({
   signoutUrl: Ember.computed('currentUrl', function () {
     let redirectUrl = this.get('currentUrl');
     if (!redirectUrl) {
-      redirectUrl = `${location.protocol}//${location.host}${ENV.baseURL}`;
+      redirectUrl = `${location.protocol}//${location.host}${ENV.rootURL}`;
     }
     redirectUrl = encodeURIComponent(redirectUrl);
     let portalBase = ENV.APP.portalBaseUrl.replace(/^http:/gi, 'https:');

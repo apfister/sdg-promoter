@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'sdg-promoter',
     environment: environment,
-    baseURL: '/',
+    rootURL: '/',
     locationType: 'auto',
 
     torii: {
@@ -53,6 +53,8 @@ module.exports = function(environment) {
     }
   };
 
+  // console.log('environment is : ' + environment);
+
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
@@ -63,7 +65,7 @@ module.exports = function(environment) {
 
   if (environment === 'test') {
     // Testem prefers this...
-    ENV.baseURL = '/';
+    ENV.rootURL = '/';
     ENV.locationType = 'none';
 
     // keep test console output quieter
@@ -74,7 +76,8 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-
+    ENV.rootURL = '/sdg-promoter/';
+    ENV.locationType = 'auto';
   }
 
 

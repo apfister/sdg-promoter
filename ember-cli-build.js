@@ -43,7 +43,8 @@ module.exports = function(defaults) {
   app.import('./bower_components/bootstrap-sass/assets/javascripts/bootstrap/tab.js');
   app.import('./bower_components/bootstrap-sass/assets/javascripts/bootstrap/transition.js');
   
-  // app.import('./bower_components/bootstrap-sass/assets/javascripts/bootstrap.js');
+  // bootstrap-select
+  app.import('./bower_components/bootstrap-select/dist/js/bootstrap-select.js');
 
   // although app.import can't pull from node_modules, Funnel can
   var extraAssets = new Funnel('./node_modules/bootstrap-sass/assets/fonts/bootstrap', {

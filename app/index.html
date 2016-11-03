@@ -18,22 +18,18 @@
 
     {{content-for 'head'}}
 
-    <link rel="stylesheet" href="/assets/vendor.css">
-    <link rel="stylesheet" href="/assets/sdg-promoter.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/vendor.css">
+    <link rel="stylesheet" href="{{rootURL}}assets/sdg-promoter.css">
 
-    <!-- <link rel="stylesheet" href="//js.arcgis.com/3.18/dojo/resources/dojo.css"> -->
-    <link rel="stylesheet" href="//js.arcgis.com/3.18/dgrid/css/dgrid.css">
-    <link rel="stylesheet" href="//js.arcgis.com/3.18/dgrid/css/skins/claro.css">
-    <link rel="stylesheet" href="//js.arcgis.com/3.18/dijit/themes/claro/claro.css">
-    <link rel="stylesheet" href="//js.arcgis.com/3.18/esri/css/esri.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.11.2/css/bootstrap-select.min.css">
 
     {{content-for 'head-footer'}}
   </head>
   <body>
     {{content-for 'body'}}
 
-    <script src="assets/vendor.js"></script>
-    <script src="assets/sdg-promoter.js"></script>
+    <script src="{{rootURL}}assets/vendor.js"></script>
+    <script src="{{rootURL}}assets/sdg-promoter.js"></script>
 
     {{content-for 'body-footer'}}
   </body>

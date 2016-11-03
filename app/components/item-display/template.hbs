@@ -1,8 +1,9 @@
 <div class="row item-row"> 
   <div class="col-xs-2"> 
     <div class="thumbnail">
-      <img class="img-responsive center-block item-thumbnail" src={{thumbnailUrl}}>
-      <!-- {{placeholder-image sourceImage=thumbnailUrl}}  -->
+      <!-- <img class="img-responsive center-block item-thumbnail" src={{thumbnailUrl}}> -->
+      
+      {{image-with-fallback fallbackSrc='/assets/images/thumbnail_placeholder.png' imgSrc=thumbnailUrl }}
     </div>
   </div>
   <div class="col-xs-8">

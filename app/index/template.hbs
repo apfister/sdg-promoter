@@ -1,10 +1,17 @@
+<div class="container-fluid group-header">
+  <div class="row no-marg-left">
+    <div class="col-xs-12">
+      <h2>Select a Group to Review Items</h2>
+    </div>
+  </div>
+</div>
+
 <div class="container">
+  
+  <hr>
 
   {{#if model.results}}
   
-    <h2>Select a Group to Review Items</h2>
-    <hr>
-
     {{#each model.results as |item|}}
       {{#link-to 'review.index' item.id}}
 

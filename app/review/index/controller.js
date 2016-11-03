@@ -9,7 +9,7 @@ export default Ember.Controller.extend({
   queryParams: ['start', 'num', 'q', 'owner', 'tags', 'type'],
   start: 1,
   q: null,
-  query: '*',
+  query: '',
   num: 5,
   owner: null,
   tags: null,
@@ -31,6 +31,15 @@ export default Ember.Controller.extend({
   }),
 
   actions: {
+
+    updateItemTypeQueryParam(options) {
+      if (Ember.isEmpty(options)) {
+        Ember.set(this, 'type', null);
+      } else {
+        Ember.set(this, 'type', options);
+      }
+    },
+
     hideAllDetails() {
       this.get('model.results').forEach( (item) => { 
         Ember.set(item, 'showDetails', false); 

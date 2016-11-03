@@ -54,8 +54,10 @@ export default Ember.Route.extend({
       }
     }
 
+    // type:("Web Map" OR "Web Mapping Application")
     if (type) {
-      parts.push('type:"' + type + '"');
+      // parts.push('type:"' + type + '"');
+      parts.push('type:' + type );
     }
 
     if (groupId) {
@@ -89,13 +91,9 @@ export default Ember.Route.extend({
     }
 
     return this.get('itemsService').search(agoParams);
-  },
+      // .then( (items) => {
 
-  getByIdOverride (id) {
-    const groupsService = this.get('groupsService');
-    let portalRestUrl = groupsService.get('portalRestUrl');
-    let url = `${groupsService.get('portalRestUrl')}/community/groups/${id}?f=json`;
-    return groupsService.request(url);
+      // } );
   },
 
   afterModel(model) {
@@ -104,7 +102,9 @@ export default Ember.Route.extend({
     // how do i bring over the group name from the index route when the user clicks on it?
     const groupId = this.paramsFor('review').groupId;
 
-    this.getByIdOverride(groupId)
+    const groupsService = this.get('groupsService');
+
+    groupsService.getById(groupId)
       .then( (response) => {
         if (response) {
           this.get('appState').set('groupName', response.title);

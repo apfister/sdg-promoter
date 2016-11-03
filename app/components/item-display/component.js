@@ -128,38 +128,47 @@ export default Ember.Component.extend({
 
         const itemsService = this.get('itemsService');
 
+        const userService = this.get('userService');
+
         itemsService.getDataById(itemId)
           .then( (itemData) => {
+            // this.set('model.data', itemData);
+            return itemData;
+          }, (error) => {
+            // this.set('model.data', '');
+            return '';
+          })
+          .then( (itemData) => {
+
             this.set('model.data', itemData);
-          })
-          .catch( (error) => {
-            this.set('model.data', '');
-          })
-          .finally( () => {
 
             if (this.get('isDestroyed') || this.get('isDestroying')) {
               Ember.debug('attempting to score a destroyed model/item so we are bailing! figure this out!');
               return;
             }
 
-            const userService = this.get('userService');
+            return userService.getByName(this.get('model.owner'));
+          })
+          .then( (userDetail) => {
+            // this.set('model.userDetail', userDetail);
+            return userDetail
+          }, (error) => {
+            // this.set('model.userDetail', {});
+            return '';
+          })
+          .then( (userDetail) => {
+            
+            this.set('model.userDetail', userDetail);
 
-            userService.getByName(this.get('model.owner'))
-              .then( (userDetail) => {
-                this.set('model.userDetail', userDetail);
-              })
-              .catch( (error) => {
-                this.set('model.userDetail', {});
-              })
-              .finally( () => {
-                
-                this._scoreItem();
+            this._scoreItem();
 
-                this._setClickHandler();
+            this._setClickHandler();
 
-              });
-
+          })
+          .catch( (err) => {
+            Ember.debug('error! run!');
           });
+
     }
   },
 
