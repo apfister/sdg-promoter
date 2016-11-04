@@ -2,11 +2,9 @@
 
 Review Items in an ArcGIS Online Organization Group and choose to "promote" them to a production status. For example, this can mean sharing to another Group that is publicly available and part of an [Open Data Site](http://opendata.arcgis.com/).
 
-<img src="http://sdgs.maps.arcgis.com/sharing/rest/content/items/df6a0d1373d846a894ed9435b8ef7641/data" width="530" height="442">
+![text](http://sdgs.maps.arcgis.com/sharing/rest/content/items/df6a0d1373d846a894ed9435b8ef7641/data)
 
-<br>
-
-<img src="http://sdgs.maps.arcgis.com/sharing/rest/content/items/0978889f85074d13bb646ac6fbe04f9e/data" width="530" height="442">
+![text](http://sdgs.maps.arcgis.com/sharing/rest/content/items/0978889f85074d13bb646ac6fbe04f9e/data)
 
 ## Prerequisites
 
