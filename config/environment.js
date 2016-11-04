@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'sdg-promoter',
     environment: environment,
-    rootURL: '/',
+    rootURL: '/sdg-promoter/',
     locationType: 'auto',
 
     torii: {
@@ -77,7 +77,7 @@ module.exports = function(environment) {
 
   if (environment === 'production') {
     ENV.rootURL = '/sdg-promoter/';
-    ENV.locationType = 'auto';
+    ENV.locationType = 'hash';
   }
 
 

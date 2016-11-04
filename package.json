@@ -49,6 +49,6 @@
     "ivy-tabs": "3.0.2",
     "loader.js": "^4.0.1",
     "torii": "0.8.0",
-    "torii-provider-arcgis": "0.3.0"
+    "torii-provider-arcgis": "0.3.1"
   }
 }

@@ -19,7 +19,7 @@ export default Ember.Route.extend({
     signin() {
       this.transitionTo('signin');
     },
-    signout: function () {
+    signout() {
       // depending on the type of auth, we need to do different things
       if (ENV.torii.providers['arcgis-oauth-bearer'].display && ENV.torii.providers['arcgis-oauth-bearer'].display === 'iframe') {
         // redirect the window to the signout url
@@ -27,6 +27,10 @@ export default Ember.Route.extend({
       } else {
         this.get('session').close();
       }
+    },
+
+    accessDenied() {
+      this.transitionTo('signin');
     }
   }
 });

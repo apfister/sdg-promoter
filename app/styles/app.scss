@@ -1,20 +1,25 @@
-/* Vars that are needed in some of the other imports and
-would normally come from calcite, but we are not including it
-in this site */
+
+$icon-font-path: '../assets/fonts/';
+
 $Calcite_Gray_050:   #ffffff; 
 $Calcite_Gray_700:   #323232; 
 
-@import 'calcite-bootstrap';
-$icon-font-path: './fonts/';
+/*$primary-font-sanserif:  'Avenir Next W01', 'Avenir Next', 'Avenir';
+$primary-font-serif: 'Kepler W01';
+$primary-headings-weight: 300;*/
+
+/*@import 'calcite-bootstrap';*/
+@import 'components/calcite-bootstrap';
+
+$icon-font-path: '../assets/fonts/';
+
 
 @import "bootstrap";
-
-$primary-font-sanserif:  'Avenir Next W01', 'Avenir Next', 'Avenir';
-$primary-font-serif: 'Kepler W01';
-$primary-headings-weight: 300;
-
+/*
 @import 'calcite/_colors-default';
 @import 'calcite/_variables';
+*/
+
 
 @import 'header';
 @import 'signin';
@@ -30,6 +35,10 @@ $primary-headings-weight: 300;
   display: none;
 }
 
+body,
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: "Open Sans",Arial, sans-serif;
+}
 
 hr {
   margin-top: 12px;
@@ -92,7 +101,7 @@ hr {
 }
 
 .group-header {
-  background: url('/assets/images/bg-header.png');
+  background: url('images/bg-header.png');
   height: 125px;
   color: white;
 }
