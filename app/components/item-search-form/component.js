@@ -1,11 +1,16 @@
 import Ember from 'ember';
-// import layout from './template';
 
 export default Ember.Component.extend({
-  // layout,
   tagName: 'form',
   
   classNames: [ 'form-inline' ],
+
+  itemTagsDisplay: Ember.computed('itemTagsHidden', function () {
+    if (this.get('itemTagsHidden')) {
+      return 'hidden';
+    }
+    return 'form-control';
+  }),
 
   submit () {
     if (this.get('query') === '') {

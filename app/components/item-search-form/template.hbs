@@ -6,8 +6,6 @@
      </span>
    </div><!-- /input-group -->
    {{input value=owner class="form-control" placeholder="Owner"}}
-   <!-- {{input value=type class="form-control" placeholder="Type"}} -->
-   {{item-type-select updateItemTypeQueryParam=updateItemTypeQueryParam}}
-   <!-- {{input value=typeKeywords class="form-control" placeholder="Type Keywords"}} -->
-   {{input value=tags class="form-control" placeholder="Tags"}}
+   {{item-type-select updateItemTypeQueryParam=updateItemTypeQueryParam isHidden=itemTypeHidden}}
+   {{input value=tags class=itemTagsDisplay placeholder="Tags" }}
 </div>

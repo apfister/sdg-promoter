@@ -1,0 +1,52 @@
+<div class="container-fluid group-header">
+  <div class="row no-marg-left">
+    <div class="col-xs-12">
+      <h2>Select a Group to Review Items</h2>
+    </div>
+  </div>
+  <div class="row no-marg-left">
+    <div class="col-sm-12">
+      {{item-search-form onFilter=(action 'filter')
+        owner=owner
+        query=query
+        itemTagsHidden=true
+        itemTypeHidden=true
+        }}
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  
+  <hr>
+
+  {{#if totalCount}}
+
+    {{#each model.results as |item|}}
+      {{#link-to 'groups.group' item.id}}
+
+      <div class="container" style="margin-bottom:20px;">
+        <div class="media">
+          <div class="media-left">
+            <a href="#">
+              <img class="media-object group-thumbnail" src="{{item.groupThumbnailUrl}}">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{item.title}}</h4>
+            {{item.snippet}}
+          </div>
+        </div>
+      </div>
+      
+      {{/link-to}}
+    {{/each}}
+    
+    <hr>
+
+    {{list-pager model=model}}
+
+  {{else}}
+    <div class="alert alert-warning">No groups found for query {{q}}.</div>
+  {{/if}}
+</div>

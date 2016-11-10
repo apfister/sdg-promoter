@@ -3,6 +3,10 @@ import Ember from 'ember';
 export default Ember.Component.extend({
   
   classNames: ['search-select'],
+  
+  classNameBindings: ['isHidden:hidden'],
+
+  isHidden: false,
 
   didInsertElement() {
     this.$('.selectpicker').selectpicker();

@@ -97,7 +97,7 @@
 
   <div class="text-center">
     <button {{action 'showNotesModal' }} class="btn btn-default">Send Notes</button>
-    <div class="btn-group item-status-dd">
+    <!-- <div class="btn-group item-status-dd">
       <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Set Status <span class="caret"></span>
       </button>
@@ -107,7 +107,8 @@
         <li {{action 'sendSetStatus' 'Accepted'}}><a href="#"><span class="item-status-accepted">Accepted</span></a></li>
         <li {{action 'sendSetStatus' 'Rejected'}}><a href="#"><span class="item-status-rejected">Rejected</span></a></li>
       </ul>
-    </div>
+    </div> -->
+    {{item-status-select model=model}}
   </div>
 
   {{#ember-wormhole to="sendNotesDestination"}}

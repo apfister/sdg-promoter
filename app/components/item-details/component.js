@@ -70,52 +70,11 @@ export default Ember.Component.extend({
     });
   },
 
-  _updateUI(status) {
-    // remove all
-    this.$('.item-status-dd li a span').removeClass('glyphicon glyphicon-ok');
-
-    // add selected
-    this.$(`.item-status-${status.toLowerCase()}`).addClass('glyphicon glyphicon-ok');
-  },
-
   actions: {
     
     showNotesModal() {
       $('#exampleModal').modal({});
-    },
-
-    sendSetStatus(status) {
-      const itemId = this.get('model.id');
-
-      if (Ember.isEmpty(itemId)) {
-        throw new Error('unable to get itemId');
-        return;
-      }
-
-      const features = [
-        {  
-          attributes: {
-            ITEM_ID: itemId,
-            STATUS: status
-          }
-        }
-      ];
-
-      this.get('setItemStatus')(features)
-        .then( (response) => {
-          if (!Ember.isEmpty(response) 
-            && response.addResults[0]
-            && response.addResults[0].success) {
-
-            Ember.set(this.get('model'), 'auditDetail.STATUS', status);
-
-            this._updateUI(status);
-
-          }
-        })
-        .catch( (error) => {
-          Ember.debug(`Error setting item status: ${JSON.stringify(error)}`);
-        });
     }
+    
   }
 });

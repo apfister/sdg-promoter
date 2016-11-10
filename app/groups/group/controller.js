@@ -1,6 +1,5 @@
 import Ember from 'ember';
 import ENV from 'sdg-promoter/config/environment';
-import ajax from 'ic-ajax';
 
 export default Ember.Controller.extend({
   itemsService: Ember.inject.service('items-service'),
@@ -46,34 +45,11 @@ export default Ember.Controller.extend({
       });
     },
 
-    // setItemStatus(inFeatures) {
-    //   const auditUrl = ENV.APP.promoter.auditServiceUrl;
-
-    //   if (!Ember.isEmpty(inFeatures) && !Ember.isEmpty(auditUrl)) {
-
-    //     const features = JSON.stringify(inFeatures);
-
-    //     return ajax({
-    //       url: `${auditUrl}/addFeatures`,
-    //       dataType: 'json',
-    //       method: 'POST',
-    //       data: {
-    //         f: 'json',
-    //         features: features,
-    //         token: this.get('session.token')
-    //       }
-    //     });
-
-    //   } else {
-    //     return Ember.RSVP.resolve({error: 'unable to add to audit service. unable to get status and/or auditUrl'});
-    //   }
-    // },
-
     filter () {
       this.set('q', this.get('query'));
       // reset the page
       this.set('start', 1);
-      this.transitionToRoute('review.index');
+      this.transitionToRoute('groups.group');
     }
 
   }

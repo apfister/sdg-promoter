@@ -10,7 +10,7 @@ export default Ember.Route.extend({
           .then((authorization) => {
             Ember.debug('AUTH SUCCESS: ', authorization);
 
-            this.controller.transitionToRoute('index');
+            this.controller.transitionToRoute('groups.index');
           })
           .catch((err) => {
             Ember.debug('AUTH ERROR: ', JSON.stringify(err));

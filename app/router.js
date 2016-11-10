@@ -7,12 +7,22 @@ var Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('index', { path: '/'} );
+  // this.route('index', { path: '/'} );
   this.route('signin');
   this.route('unauthorized');
 
-  this.authenticatedRoute('review', { path: ':groupId' }, function () {
-    this.route('index', { path: '/'});
+  // this.authenticatedRoute('review', { path: ':groupId' }, function () {
+  //   this.route('index', { path: '/'});
+  // });
+
+  this.authenticatedRoute('groups', {path: '/'},  function () {
+    this.route('group', { path: '/:id' }, function () {
+      this.route('details', { path: '/' });
+    });
+  });
+
+  this.route('groups', function() {
+    this.route('index-loading');
   });
 });
 

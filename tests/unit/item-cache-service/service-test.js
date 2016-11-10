@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('service:portal-query-engine', 'Unit | Service | portal query engine', {
+moduleFor('service:item-cache-service', 'Unit | Service | item cache service', {
   // Specify the other units that are required for this test.
   // needs: ['service:foo']
 });

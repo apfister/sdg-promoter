@@ -5,6 +5,10 @@ export default Ember.Component.extend({
   intl: Ember.inject.service(),
 
   itemsService: Ember.inject.service(),
+
+  itemCacheService: Ember.inject.service(),
+
+  userCacheService: Ember.inject.service(),
   
   userService: Ember.inject.service(),
 
@@ -21,7 +25,8 @@ export default Ember.Component.extend({
     'Image Service': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/imagery16.png',
     'Web Scene': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/websceneglobal16.png',
     'CSV': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png',
-    'Code Attachment': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png'
+    'Code Attachment': '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafiles16.png',
+    'PDF' : '//js.arcgis.com/3.18/esri/css/images/item_type_icons/datafilesgray16.png'
   },
 
   thumbnailUrl: Ember.computed('model.id', 'model.thumbnail', function () {
@@ -107,6 +112,10 @@ export default Ember.Component.extend({
 
   didInsertElement() {
 
+    const itemCacheService = this.get('itemCacheService');
+
+    const userCacheService = this.get('userCacheService');
+
     const itemType = this.get('model.type');
 
     if (Ember.isEmpty(this.get('model.url'))) {
@@ -122,53 +131,78 @@ export default Ember.Component.extend({
         itemType === arcgisValidatorConfig.supportedTypes.IMAGE_SERVICE ||
         itemType === arcgisValidatorConfig.supportedTypes.MAP_SERVICE ||
         itemType === arcgisValidatorConfig.supportedTypes.WEB_SCENE ||
-        itemType === arcgisValidatorConfig.supportedTypes.CSV ) {
+        itemType === arcgisValidatorConfig.supportedTypes.CSV ||
+        itemType === arcgisValidatorConfig.supportedTypes.PDF ) {
 
         const itemId = this.get('model.id');
 
-        const itemsService = this.get('itemsService');
+        let itemData = itemCacheService.getItem(itemId);
+        
+        let shouldAddItemToCache = false;
+        let shouldAddUserToCache = false;
 
-        const userService = this.get('userService');
+        let promises = {};
 
-        itemsService.getDataById(itemId)
-          .then( (itemData) => {
-            // this.set('model.data', itemData);
-            return itemData;
-          }, (error) => {
-            // this.set('model.data', '');
-            return '';
-          })
-          .then( (itemData) => {
+        if (Ember.isEmpty(itemData)) {
+          const itemsService = this.get('itemsService');
 
-            this.set('model.data', itemData);
+          promises.itemData = itemsService.getDataById(itemId);
 
-            if (this.get('isDestroyed') || this.get('isDestroying')) {
-              Ember.debug('attempting to score a destroyed model/item so we are bailing! figure this out!');
-              return;
+          shouldAddItemToCache = true;
+
+        } else {
+          promises.itemData = Ember.RSVP.Promise.resolve(itemData, itemId);
+        }
+
+        const userOwner = this.get('model.owner');
+
+        let userDetail = userCacheService.getUser(userOwner);
+
+        if (Ember.isEmpty(userDetail)) {
+          const userService = this.get('userService');
+
+          promises.userDetail = userService.getByName(userOwner);
+
+          shouldAddUserToCache = true;
+
+        } else {
+          promises.userDetail = Ember.RSVP.Promise.resolve(userDetail, userOwner);
+        }
+
+        Ember.RSVP.hashSettled(promises)
+          .then( (hash) => {
+
+            // console.log(hash);
+
+            if (hash.itemData.state === 'rejected') {
+              this.set('model.data', '');
+            } else if (hash.itemData.state === 'fulfilled') {
+              this.set('model.data', hash.itemData.value);
+
+              if (shouldAddItemToCache) {
+                itemCacheService.add(itemId, hash.itemData.value);
+              }
+
             }
 
-            return userService.getByName(this.get('model.owner'));
-          })
-          .then( (userDetail) => {
-            // this.set('model.userDetail', userDetail);
-            return userDetail
-          }, (error) => {
-            // this.set('model.userDetail', {});
-            return '';
-          })
-          .then( (userDetail) => {
-            
-            this.set('model.userDetail', userDetail);
+            if (hash.userDetail.state === 'rejected') {
+              this.set('model.userDetail', {});
+            } else if (hash.userDetail.state === 'fulfilled') {
+              this.set('model.userDetail', hash.userDetail.value);
+
+              if (shouldAddUserToCache) {
+                userCacheService.add(userOwner, hash.userDetail.value);
+              }
+
+            }            
 
             this._scoreItem();
 
             this._setClickHandler();
 
-          })
-          .catch( (err) => {
-            Ember.debug('error! run!');
+          }, (error) => {
+            throw new Error(`error collecting userDetail and itemData: ${error.message}`);
           });
-
     }
   },
 
@@ -206,7 +240,6 @@ export default Ember.Component.extend({
     // toggle the state for the item that was clicked
     this.set('model.showDetails', !isShowing);
    
-    console.log('click!');
   },
 
   willDestroyElement() {

@@ -73,7 +73,7 @@ export default Ember.Route.extend({
 
   model (params, transition) {
 
-    let agoQuery = this.createAgoQuery(params.q, params.owner, params.tags, params.type, params.typeKeywords, transition.params.review.groupId);
+    let agoQuery = this.createAgoQuery(params.q, params.owner, params.tags, params.type, params.typeKeywords, params.id);
     let agoParams = {
       q: agoQuery,
       start: params.start,
@@ -94,11 +94,11 @@ export default Ember.Route.extend({
     return this.get('itemsService').search(agoParams);
   },
 
-  afterModel(model) {
+  afterModel(model, transition) {
 
     // get group name. maybe there is a better way to do this.
     // how do i bring over the group name from the index route when the user clicks on it?
-    const groupId = this.paramsFor('review').groupId;
+    const groupId = transition.params['groups.group'].id;
 
     const groupsService = this.get('groupsService');
 
